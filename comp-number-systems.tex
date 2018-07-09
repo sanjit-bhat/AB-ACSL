@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{ACSL Preperation: Computer Number Systems}
+\author{Sanjit Bhat \and Alexander Sun}
+\date{June 2018}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\begin{center}
+    \title{ACSL Problem Set: Number Systems}
+\end{center}
+1. How many numbers from 300 to 500, inclusive, have 8 1’s in their binary representation?
+\\\\
+\indent
+The first step is to find the smallest number that has 8 1's in its binary representation. Clearly, that number is $11111111_2$. 
+
+Next, we'll use a neat little formula (which we'd highly recommend that you memorize) to convert special binary numbers to decimal. This formula states that a binary number with only $d$ digits all set to 1 will have a decimal representation of $2^d-1$. Proof of the formula follows from noticing that the next binary number (a 1 with $d$ 0's behind it) is precisely $2^d$.
+
+\[11111111_2 = 2^8_{10}-1_{10} = 256_{10}-1_{10} = 255_{10}\]
+
+Now that we know the smallest number which satisfies the constraint is 255, we would like to work our way up to find another such number. The purpose of doing this is to find the start of a sequence of binary numbers which could possibly be within the 300-500 range.
+
+The binary numbers larger than $11111111_2$ all have more than 9 or more digits, and the first 9 digit binary number to have after We can see that we have to add a 0 to the binary representation, which always results in a 9 digit binary number leading with 1.(We can't place a 0 at the beginning). Therefore the next smallest number complying with the rule that we can make is 101111111 
+
+The value of $2^8$ by itself is 512 and already is above the 500 limit. So just by attempting to make the next smallest number with 8 1's in its binary representation we rise over the 500 limit. So the answer is 0.
+\\\\
+2. Let n be any positive base 10 integer from 1 to $2^{12}$ inclusive. Let S(n) be the number of 1’s in the binary representation of n. Find the number of n’s such that S(n) - S(n+1) = 3.
+\\\\
+\indent
+First of all, we see that adding 1 to the binary representation of a number, decreases it's 1 count by 3. 
+
+Even numbers in binary end with a 0 in the last place and odd binary numbers end with a 1. When 1 is added to an even binary number the amount of 1's increases by one: 110 + 1 = 111. The one added never carries over to the other digits in the binary representation
+
+Odd numbers in binary end with a 1 in the last place. When 1 is added it causes the last digit to change from a 1 to a 0 and carry over to the next place. 101 + 1 = 110. The carry over is the key as when we have a chain of 0's tailing the number we end up with a chain of transformations: 1011 + 1 = 1100. As you can see the chain of 2 1's was replaced a single 1 that carried over into the next place. 
+
+The next important pattern that we see is that the chain is always replaced by a singular 1 in the next place. Now looking back at the problem, it asks us to find numbers with a loss of 3 1's when 1 is added to it's binary representation. Because the chain always carries a 1 into the next place, we need a chain of 4 1's at the tail to create a loss of 3. We conclude that our tail must always end with 01111.
+
+Now we must figure out how to deal with the limit of $2^{12}$. We know that a binary number with all ones with 12 digits is equivalent to $2^{12} - 1$ Even attempting to place one 1 in the 1st place of a 13 digit number with the rest of values being 0 is out of range. We conclude that the largest number that satisfies this condition is 111111101111. Now to finally solve the problem each digit place after the set tail has 2 options. Either a 1 or 0 and all combinations fit the solution because at most we have that number above. Because there are 7 digits that we can modify this way, the solution is $2^7$ 
+
+\end{document}
