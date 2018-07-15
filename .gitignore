@@ -2,3 +2,5 @@
 *.log
 *.gz
 test.tex
+!TJICT-problem-sets/*.pdf
+.idea/
