@@ -1,6 +1,4 @@
-*.pdf
 *.log
 *.gz
-test.tex
-!TJICT-problem-sets/*.pdf
+test.*
 .idea/
