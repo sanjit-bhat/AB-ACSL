@@ -1,0 +1,48 @@
+\documentclass{article}
+
+\title{ACSL Preparation: Prefix Postfix Infix}
+\author{Sanjit Bhat \and Alexander Sun}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\begin{center}
+    \title{ACSL Problem Set: Prefix Postfix Infix}
+\end{center}
+
+\section{Introduction:}
+This problem section refers to the notation/format of the operations in an equation. 
+
+\subsection{Infix:}
+Infix refers to notation of writing the operators lying in between the operands. This is the normal notation that we use. E.X: A + B
+
+\subsection{Prefix:}
+In prefix notation the operator lies in front of the operands. E.X: + A B
+
+\subsection{Postfix:}
+In postfix notation the operator lies behind the operands. E.X: A B +
+
+\section{Evaluation:}
+Evaluation of different notations can be quite confusing. One method to simplify the operation is to insert parenthesis around each operation. Remember that each operation only applies to 2 numbers. Solve the problem by taking apart the problem in layers and inserting parenthesis where each operation falls in the later. 
+
+\subsection{Identification:}
+The first step is to determine whether the equation is in prefix or postfix. One easy way to tell is if there are operators leading or trailing the first and last numbers in the equation. If there are number leading then it is prefix, and vice-versa for postfix.
+
+\subsection{Prefix:}
+-*DA/+BCD = -(*DA)/(+BC)D = -((*DA)(/(+BC)D)) = (D*A)-((B+C)/D) Multiply A and D and subtract the quotient of the sum of B and C and D.
+
+\subsection{Postfix:}
+AB*CD/+ = ((AB *) (CD /) +) = (A*B)+(C/D)
+Multiply A and B, Divide C by D, then add the results
+
+
+
+
+
+
+
+\enddocument
