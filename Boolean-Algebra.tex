@@ -1,0 +1,86 @@
+\documentclass{article}
+
+\title{ACSL Preparation: Boolean Algebra}
+\author{Sanjit Bhat \and Alexander Sun}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\begin{center}
+    \title{ACSL Problem Set: Boolean Algebra}
+\end{center}
+
+\section{Introduction:}
+Boolean algebra is the branch of algebra in which the variables store truth value. All variables are true(1) or false(0).
+There are 3 main operations that create the base for boolean algebra: $\textbf{AND(conjunction)}$, $\textbf{OR(disjunction)}$, and $\textbf{NOT(negation)}$. 
+
+\bigskip
+\noindent
+\section{Basic Operations:}
+\textbf{AND}, denoted x $\land$ y or x AND y, satisfies x $\land$ y = 1 if x = y = 1 , else x $\land$ y = 0
+
+\noindent
+\textbf{OR}, denoted x $\lor$ y or x OR y, satisfies x $\lor$ y = 0 if x = y = 0 , else x $\lor$ y = 1
+
+\noindent
+\textbf{NOT}, denoted $\neg$x or NOT x, satisfies $\neg$x = 0 if x = 1 and $\neg$x = 1 if x = 0
+
+\begin{center}
+\begin{tabular}{ |c|c|c|c| } 
+ \hline
+ x & y & x$\land$y & x$\lor$y \\ 
+ \hline
+  0 & 0 & 0 & 0 \\ 
+ \hline
+ 1 & 0 & 0 & 1 \\ 
+ \hline
+ 0 & 1 & 0 & 1 \\ 
+ \hline
+ 1 & 1 & 1 & 1 \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{ |c|c| } 
+ \hline
+ x & $\neg$x \\ 
+ \hline
+  0 & 1  \\ 
+ \hline
+ 1 & 0 \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+\section{Secondary Operations}
+
+\textbf{Material Implication}, denoted  x $\rightarrow$ y = $\neg$x$\lor$y, if x = 1, then x $\rightarrow$ y = y, if x = 0, then x $\rightarrow$ y = 1
+
+\noindent
+\textbf{Exclusive Or}, denoted x $\oplus$ y or x XOR y, x $\oplus$ y = 1 if x = 1 $\&$ y = 0 or x = 0 $\&$ y = 1, else x $\oplus$ y = 0, true when values are different
+
+\noindent
+\textbf{Equivalence}, denoted x $\equiv$ y, x $\equiv$ y = 1 if x =1 $\&$ y =1, or if x = 0 $\&$ y = 0, complement of XOR, true when values are the same
+\bigskip
+
+\noindent
+With these basic rules memorized, all boolean algebra problems should be simple to work through
+
+\section{Practice Problems}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
