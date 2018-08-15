@@ -21,13 +21,13 @@ There are 3 main operations that create the base for boolean algebra: $\textbf{A
 \bigskip
 \noindent
 \section{Basic Operations:}
-\textbf{AND}, denoted x $\land$ y or x AND y, satisfies x $\land$ y = 1 if x = y = 1 , else x $\land$ y = 0
+\textbf{AND}, denoted x $\land$ y or x AND y or x $\cdot$ y, satisfies x $\land$ y = 1 if x = y = 1 , else x $\land$ y = 0
 
 \noindent
-\textbf{OR}, denoted x $\lor$ y or x OR y, satisfies x $\lor$ y = 0 if x = y = 0 , else x $\lor$ y = 1
+\textbf{OR}, denoted x $\lor$ y or x OR y or x + y, satisfies x $\lor$ y = 0 if x = y = 0 , else x $\lor$ y = 1
 
 \noindent
-\textbf{NOT}, denoted $\neg$x or NOT x, satisfies $\neg$x = 0 if x = 1 and $\neg$x = 1 if x = 0
+\textbf{NOT}, denoted $\neg$x or NOT x or $\sim$x or $\bar{x}$, satisfies $\neg$x = 0 if x = 1 and $\neg$x = 1 if x = 0, reverses truth values of operation
 
 \begin{center}
 \begin{tabular}{ |c|c|c|c| } 
@@ -66,12 +66,30 @@ There are 3 main operations that create the base for boolean algebra: $\textbf{A
 
 \noindent
 \textbf{Equivalence}, denoted x $\equiv$ y, x $\equiv$ y = 1 if x =1 $\&$ y =1, or if x = 0 $\&$ y = 0, complement of XOR, true when values are the same
+\noindent
+\textbf{Dual}, the dual is found by replacing all OR's with AND's and all AND's with OR's, and all 1's with 0's and all 0's with 1's
+
+\noindent
+\textbf{Complement}, found by negating each individual value and replaving all OR's with AND's and all AND's with OR's and all 1's with 0's and all 0's with 1's
+\bigskip
+
+\noindent
+Memorizing boolean algebra laws is extremely beneficial to being able to solve problems quickly and efficiently. Here is a link to page with almost every law. Most are derivable, but should still be memorized.  http://www.uiltexas.org/files/academics/UILCS-BooleanIdentities.pdf
+
 \bigskip
 
 \noindent
 With these basic rules memorized, all boolean algebra problems should be simple to work through
 
 \section{Practice Problems}
+\begin{enumerate}
+\item Simplify completely:(ACSL 2001-2002)
+$( A + B )\oplus A B$
+
+\item Simplify the following expression: F = BC + $\overline{BC}$ + BA
+
+\item Simplify the Boolean expression (A+B+C)$\overline{(D+E)}$ + (A+B+C)(D+E):
+\end{enumerate}
 
 \end{document}
 
