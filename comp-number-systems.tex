@@ -64,21 +64,21 @@ Split each base 16 digit into its 4-digit binary equivalent.
 First, we convert to base 10.
 
 \begin{align*}
-\text{FEED}_{16} & = (15 * 16^3 + 14 * 16^2 + 14 * 16 + 13)_{10} = 65261_{10}\\
+\text{FEED}_{16} & = (15 * 16^3 + 14 * 16^2 + 14 * 16 + 14)_{10} = 65262_{10}\\
 \text{6ACE}_{16} & = (6 * 16^3 + 10 * 16^2 + 12 * 16 + 15)_{10} = 27343_{10}
 \end{align*}
 
-$65261_{10} - 27343_{10} = 37918_{10}$.
+$65261_{10} - 27343_{10} = 37919_{10}$.
 Just as a reminder, we'll do the last bit of computation to convert to base 16. \todo{add appendix on why this works}
 
 \begin{align*}
-37918/16 &= 2369~\text{R 15}\\
+37919/16 &= 2369~\text{R 15}\\
 2369/16 &= 148~\text{R 1}\\
 148/16 &= 9~\text{R 4}\\
 9/16 &= 0~\text{R 9}
 \end{align*}
 
-Put together the remainders in reverse order of when we got them, and our final number is $\boxed{\text{941E}_{16}}$
+Put together the remainders in reverse order of when we got them, and our final number is $\boxed{\text{941F}_{16}}$
 
 \item
 Look at Problem 2 for a full explanation. Answer is $\boxed{\text{530ECB}_{16}}$
@@ -181,7 +181,7 @@ Recall in Problem 1.2 our process for converting $37918_{10}$ into base 16.
 9/16 &= 0~\text{R 9}
 \end{align*}
 
-In this section, we'd like to understand why putting together the remainders in reverse order yields our final number, $\text{941E}_{16}$.
+In this section, we'd like to understand why putting together the remainders in reverse order yields our final number, $\text{E}_{16}$.
 
 To show this, first, let's re-write the above the first step as
 \begin{equation*}
