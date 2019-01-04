@@ -15,7 +15,7 @@
 \end{center}
 
 \section{Introduction:}
-This problem section refers to the notation/format of the operations in an equation. 
+This problem section refers to the notation/format of the operations in an equation. This source gives good explanation, and real uses of this seemingly toxic topic: http://interactivepython.org/runestone/static/pythonds/BasicDS/InfixPrefixandPostfixExpressions.html
 
 \subsection{Infix:}
 Infix refers to notation of writing the operators lying in between the operands. This is the normal notation that we use. E.X: A + B
@@ -39,7 +39,7 @@ The first step is to determine whether the equation is in prefix or postfix. One
 AB*CD/+ = ((AB *) (CD /) +) = (A*B)+(C/D)
 Multiply A and B, Divide C by D, then add the results
 
-\section{Excersizes:}
+\section{Exersizes:}
 Not to many challenging problems in this topic can be written, it's pretty straightforward
 
 \begin{enumerate}
@@ -51,8 +51,55 @@ Not to many challenging problems in this topic can be written, it's pretty strai
 \item Find all integer values of X for which the following prefix expression has
 a value of zero:(ACSL 2001-2002) $\times$ + X 4 - 6 X 
 
+\item Given A=4, B=14 and C=2, evaluate the following prefix expression: $$* / ­ + A B C * A C B$$
+
+\item Evaluate the following prefix expression, when A=10, B=2, C=12 and D=2. $$+ / A B 2  / ­ C D / A B 3 / + AC B$$
+\subsection{Convert to Prefix and Postfix}
+
+\item Infix Expression: ( AX + ( B * C ) ) 
+
+\item Infix Expression: ( ( AX + ( B * CY ) ) / ( D ­ E ) ) 
+
+\item Infix Expression: ( ( A + B ) * ( C + E ) ) 
+
+\item Infix Expression: ( AX * ( BX * ( ( ( CY + AY ) + BY ) * CX ) ) ) 
+
+\item Infix Expression: ( ( H * ( ( ( ( A + ( ( B + C ) * D ) ) * F ) * G ) * E ) ) + J ) 
+\subsection{Solutions to previous section}
+
+Infix Expression: ( AX + ( B * C ) ) 
+\\
+Postfix Expression: AX B C * +
+\\
+Prefix Expression: + AX * B C
+\\
+\\
+Infix Expression: ( ( AX + ( B * CY ) ) / ( D ­ E ) ) 
+\\
+Postfix Expression: AX B CY * + D E ­ /
+\\
+Prefix Expression: / + AX * B CY ­ D E
+\\
+\\
+Infix Expression: ( ( A + B ) * ( C + E ) ) 
+\\
+Postfix Expression: A B + C E + *
+\\
+Prefix Expression: * + A B + C E
+\\
+\\
+Infix Expression: ( AX * ( BX * ( ( ( CY + AY ) + BY ) * CX ) ) ) 
+\\
+Postfix Expression: AX BX CY AY + BY + CX * * *
+\\
+Prefix Expression: * AX * BX * + + CY AY BY CX
+\\
+\\
+Infix Expression: ( ( H * ( ( ( ( A + ( ( B + C ) * D ) ) * F ) * G ) * E ) ) + J ) 
+\\
+Postfix Expression: H A B C + D * + F * G * E * * J +
+\\
+Prefix Expression: + * H * * * + A * + B C D F G E J
+
 \end{enumerate}
-
-
-
 \enddocument
