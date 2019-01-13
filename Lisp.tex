@@ -1,0 +1,136 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[in]{fullpage} % use full page
+
+\usepackage{hyperref}
+
+\title{ACSL Training: Lisp}
+\author{Sanjit Bhat \and Alexander Sun}
+\date{\today}
+
+\begin{document}
+    \maketitle
+    \section{Fun Facts}
+    \begin{itemize}
+        \item Lisp was developed in the 50's by John McCarthy at MIT.
+        He was a highly influential figure in Artificial Intelligence who later
+        went on to win the Turing Award and found the Stanford AI Lab.
+        Owing to its founder, Lisp was predominently used in AI research.
+        \item After Fortran, Lisp is the second-oldest high-level programming language.
+        \item Ever heard of tree data structures, dynamic typing (not specifying variable types), conditionals, or recursion?
+        Yup, these concepts were pioneered in Lisp.
+    \end{itemize}
+
+    \section{Background Info}
+    First, I recommend spending some time on the
+    \href{https://en.wikipedia.org/wiki/Lisp_(programming_language)#Syntax_and_semantics}{Wikipedia page} to get a background on Lisp-specific syntax.
+    It delves into why certain things are the way they are.\footnote{Did
+    you know that Lisp uses prefix notation in its S-expressions?
+    That's why prefix/postfix/infix is an ACSL topic}
+
+    Next, check out the \href{http://www.categories.acsl.org/wiki/index.php?title=LISP}{ACSL wiki} for Lisp.
+    Like the name implies, the fundamental concept in Lisp is that every
+    line of code, from function calls to print statements,
+    is placed inside a list.
+    For example, (function arg1 arg2 arg3 \ldots~argn)
+    calls the function with the subsequent arguments as its input.
+    The highly regular parentheses-based syntax makes the language
+    easy to process.
+    In fact, owing to the regularity, it was one of the first languages
+    that allowed recursion---each of the arguments can be
+    functions themselves.
+
+    Here's the relevant terminology:
+    \begin{enumerate}
+        \item \textit{atom}: an individual list element that is not a list itself
+        \item \textit{literal}: \textbf{SUPER IMPORTANT}.
+        Defined with a single leading quote.
+        Tells Lisp whether or not to evaluate a statement.
+        Watch for the quotes whenever you read a problem.
+        \item \textit{NIL}: Both an atom and a list.
+        The equivalent of null in Java and NONE in Python.
+    \end{enumerate}
+t
+    \subsection{Basic Functions}
+    There are 4 basic functions: SET, SETQ, EVAL, and ATOM.
+    SET assigns arg2 to arg1, evaluating the arguments as usual
+    \textbf{if they are non-literals}.
+    SETQ is the exact same as SET except that it automatically makes arg1
+    a literal.
+
+    EVAL resolves arguments, while ATOM tests whether an item is an atom or a list.
+    To test your knowledge, which of the two ATOMs will return ``true''?
+    What will (EVAL c) return?:
+    \begin{enumerate}
+        \item (SETQ a '(MULT 2 3))
+        \item (SET 'b 'a)
+        \item (SET 'c a)
+        \item (ATOM b)
+        \item (ATOM c)
+    \end{enumerate}
+
+    \subsection{List Functions}
+    There are 4 main list functions: CAR, CDR, CONS, REVERSE.
+    (CAR x) returns the first element of list x and (CDR x) returns
+    x without its first element.
+    For quick access to specific elements in a list, Lisp users
+    use functions like CAADDDAR where the A's and D's represent successive
+    CAR and CDR operations.
+
+    CONS(x y) is slightly more complex.
+    It requires y to be a list and returns a list (x y).
+    Finally, (REVERSE arg1 arg2 \ldots~argn) returns (argn \ldots~ arg2 arg1).
+
+    What value does this code produce?:
+    \begin{enumerate}
+        \item (SETQ z (CONS '(red white blue) (CDR '(THIS is a list))))
+        \item (CDDAR z)
+    \end{enumerate}
+
+    \subsection{Arithmetic Functions}
+    There are 9 main arithmetic functions: ADD, SUB, MULT, DIV, SQUARE,
+    EXP, EQ, POS, NEG.
+    ADD and MULT work on an indefinite number of arguments,
+    EQ tests for equality (returning ``true'' or NIL),
+    and POS and NEG test the integer signs.
+
+    Note that ADD, SUB, MULT, and DIV can be written with +, -, *, and /,
+    but remember to use \textbf{prefix} notation.
+
+    \subsection{Defining Your Own Function}
+    You can define your own function using the DEF function.
+    For example, (DEF second (args) (CAR (CDR args))) creates
+    a function second that returns its second argument.
+
+    \section{Exercises}
+    \begin{enumerate}
+        \item Evaluate (MULT (ADD 6 5 0) (MULT 5 1 2 2) (DIV 9 (SUB 2 5)))
+        \item Evaluate (CDR '((2 (3))(4 (5 6) 7)))
+        \item (SETQ X '(RI VA FL CA TX))\\
+        (CAR (CDR (REVERSE X)))\\
+        What is the value of the CAR expression?
+        \item Evaluate (CAR '((2 (3)) (4 (5 6)) 7))
+        \item (SETQ X '(((a (b c) d) e) ((b (c (d e) b)) a)(a b c)((c d) b (a b)(c e d))))\\
+        Evaluate the following expression:\\
+        (CDR(CDR(CDR(REVERSE(CAR(REVERSE(CDR x)))))))
+        \item Given the function definitions for HY and FY as follows:\\
+        (DEF HY(PARMS)(REVERSE (CDR PARMS)))\\
+        (DEF FY(PARMS)(CAR (HY(CDR PARMS))))\\
+        What is the value of the following?
+        (FY '(DO RE(MI FA) SO))
+        \item Evaluate
+        (EXP(MULT 2(SUB 5(DIV(ADD 5 3 4) 2)) 3)3)
+    \end{enumerate}
+
+    \newpage
+    \section{Solutions}
+    \begin{enumerate}
+        \item -440
+        \item ((4 (5 6) 7))
+        \item CA
+        \item (2 (3))
+        \item (e d)
+        \item SO
+        \item -216
+    \end{enumerate}
+
+\end{document}
