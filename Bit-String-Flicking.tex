@@ -1,4 +1,7 @@
-\documentclass{article}
+\documentclass[11pt,letterpaper]{article}
+\usepackage[in]{fullpage} % use full page
+
+\usepackage{hyperref}
 
 \title{ACSL Preparation: Bit String Flicking}
 \author{Sanjit Bhat \and Alexander Sun}
@@ -7,12 +10,6 @@
 \begin{document}
 
 \maketitle
-
-\newpage
-
-\begin{center}
-    \title{ACSL Problem Set: Prefix Postfix Infix}
-\end{center}
 
 \section{Introduction/Lecture}
 Bit String Flicking is a general term to denote operations that can be done to bit strings/ binary strings. They can involve multiple strings or just a single string. There are 3 general types of operations, your basic truth operators, shifts, and circulates.
@@ -41,40 +38,21 @@ Order of Operations: NOT, SHIFT / CIRC, AND, XOR, OR
 \\
 Solving problems with variables often have more then one solution. Some questions will ask you to list out all values, and others will ask for the amount of possible values. Generally just work from the outside in, and if necessary assign values abced. for each digit the expression is equivalent to, and use that to help you.
 \section{Exercises}
-Some Borrowed from http://minich.com/education/wyo/acsl/bitstringflicking/bitstringwksht1.htm
-\\
- 1. 10010 OR 11101
-\\
-\\
- 2. 10001 AND 11011 OR 11001
-\\
-\\
-3. 11100 OR 10101 AND 10111
-\\
-\\
- 4. NOT 101 AND 100
-\\
-\\
- 5. 101011 XOR 110101
-\\
-\\
- 6. 101011 OR 100111 XOR 100010
-\\
-\\
- 7. NOT (11101 XNOR 10100)
-\\
-\\
-8. 1011 OR 1101 XOR 1000 AND 1010 OR 1110 AND NOT 1000
-\\
-\\
-9.Find all possible values of x: (RCIRC-2(LSHIFT-1 (NOT X)))=00101
-\\
-\\
-10.List all possible unique values of x that solve the following equation: (LSHIFT-1 (10110 XOR (RCIRC-3 x) AND 11011)) = 01100
-\\
-\\
-11.(RSHIFT-1 (LCIRC-4 (RCIRC-2 01101)))
-\\
-\\
-12.((RCIRC-14 (LCIRC-23 01101)) $\mid$ (LSHIFT-1 10011) $\&$ (RSHIFT-2 10111)). Hint: Order of operations, generally parenthesis dictate order
-\enddocument
+Some borrowed from \href{http://minich.com/education/wyo/acsl/bitstringflicking/bitstringwksht1.htm}{here}.
+\begin{enumerate}
+\item 10010 OR 11101
+\item 10001 AND 11011 OR 11001
+\item 11100 OR 10101 AND 10111
+\item NOT 101 AND 100
+\item 101011 XOR 110101
+\item 101011 OR 100111 XOR 100010
+\item NOT (11101 XNOR 10100)
+\item 1011 OR 1101 XOR 1000 AND 1010 OR 1110 AND NOT 1000
+\item Find all possible values of x: (RCIRC-2(LSHIFT-1 (NOT X)))=00101
+\item List all possible unique values of x that solve the following equation: \\
+(LSHIFT-1 (10110 XOR (RCIRC-3 x) AND 11011)) = 01100
+\item (RSHIFT-1 (LCIRC-4 (RCIRC-2 01101)))
+\item ((RCIRC-14 (LCIRC-23 01101)) $\mid$ (LSHIFT-1 10011) $\&$ (RSHIFT-2 10111)) \\
+Hint: Order of operations, generally parenthesis dictate order
+\end{enumerate}
+\end{document}
