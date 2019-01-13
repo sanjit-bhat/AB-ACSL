@@ -28,16 +28,16 @@
     That's why prefix/postfix/infix is an ACSL topic}
 
     Next, check out the \href{http://www.categories.acsl.org/wiki/index.php?title=LISP}{ACSL wiki} for Lisp.
-    Like the name implies, the fundamental concept in Lisp is that every
+    Like the name implies, the fundamental idea behind Lisp is that every
     line of code, from function calls to print statements,
-    is placed inside a list.
+    is placed inside a linked-list.
     For example, (function arg1 arg2 arg3 \ldots~argn)
     calls the function with the subsequent arguments as its input.
     The highly regular parentheses-based syntax makes the language
     easy to process.
-    In fact, owing to the regularity, it was one of the first languages
-    that allowed recursion---each of the arguments can be
-    functions themselves.
+    In fact, owing to its regularity, Lisp was one of the first languages
+    that allowed recursion---each of the arguments can themselves
+    be functions.t
 
     Here's the relevant terminology:
     \begin{enumerate}
@@ -45,21 +45,24 @@
         \item \textit{literal}: \textbf{SUPER IMPORTANT}.
         Defined with a single leading quote.
         Tells Lisp whether or not to evaluate a statement.
-        Watch for the quotes whenever you read a problem.
-        \item \textit{NIL}: Both an atom and a list.
+        Note: watch for the quote whenever you read a problem.
+        \item \textit{NIL}: Both an atom and a list with no elements.
         The equivalent of null in Java and NONE in Python.
+        In true or false functions, NIL represents false.
     \end{enumerate}
 
     \subsection{Basic Functions}
     There are 4 basic functions: SET, SETQ, EVAL, and ATOM.
-    SET assigns arg2 to arg1, evaluating the arguments as usual
+    (SET arg1 arg2) assigns arg2 to arg1, evaluating the arguments as usual
     \textbf{if they are non-literals}.
-    SETQ is the exact same as SET except that it automatically makes arg1
+    (SETQ arg1 arg2) is the exact same as SET except that it automatically makes arg1
     a literal.
+    Thus, Lisp assumes that arg1 is a variable name.
 
     EVAL resolves arguments, while ATOM tests whether an item is an atom or a list.
-    To test your knowledge, which of the two ATOMs will return ``true''?
-    What will (EVAL c) return:
+    To test your knowledge, what will each of the following ATOMs return in
+    the following problem?
+    Also, what will (EVAL c) return?
     \begin{enumerate}
         \item (SETQ a '(MULT 2 3))
         \item (SET 'b 'a)
@@ -67,60 +70,93 @@
         \item (ATOM b)
         \item (ATOM c)
     \end{enumerate}
-
-    \subsection{List Functions}
-    There are 4 main list functions: CAR, CDR, CONS, REVERSE.
-    (CAR x) returns the first element of list x and (CDR x) returns
-    x without its first element.
-    For quick access to specific elements in a list, Lisp users
-    use functions like CAADDDAR where the A's and D's represent successive
-    CAR and CDR operations.
-    The preceding functions represents (CAR(CAR(CAD(CAD(CAD(CAR x)))))).
-
-    CONS(x y) is slightly more complex.
-    It requires y to be a list and returns a list (x y).
-    Finally, (REVERSE arg1 arg2 \ldots~argn) returns (argn \ldots~ arg2 arg1).
-
-    What value does this code produce:
-    \begin{enumerate}
-        \item (SETQ z (CONS '(red white blue) (CDR '(THIS is a list))))
-        \item (CDDAR z)
-    \end{enumerate}
+    Answer: a is assigned to be the list (MULT 2 3).
+    If there was no quote before (MULT 2 3), Lisp would evaluate arg2 and set
+    a to be 6.
+    b is set to be the literal `a', which makes it a character and makes
+    the ATOM function return `true'.
+    c is set to be the variable a, which makes it a list and makes the ATOM function
+    return NIL.
+    Eval c would evaluate the list, returning the value 6.
 
     \subsection{Arithmetic Functions}
     There are 9 main arithmetic functions: ADD, SUB, MULT, DIV, SQUARE,
     EXP, EQ, POS, NEG.
-    ADD and MULT work on an indefinite number of arguments,
-    EQ tests for equality (returning ``true'' or NIL),
-    and POS and NEG test the integer signs.
+    Every function corresponds to its relevant mathematical operation.
+    A few things to note:
+    \begin{itemize}
+        \item ADD and MULT work on an indefinite number of arguments
+        \item EQ tests for equality, returning ``true'' or NIL
+        \item POS and NEG test whether their arguments are positive or negative
+        \item ADD, SUB, MULT, and DIV can be written with +, -, *, and /.
+        If you use these symbols, remember to use \textbf{prefix} notation.
+    \end{itemize}
 
-    Note that ADD, SUB, MULT, and DIV can be written with +, -, *, and /,
-    but remember to use \textbf{prefix} notation.
+    \subsection{List Functions}
+    There are 4 main list functions: CAR, CDR, CONS, REVERSE.
+    Understanding how these work is arguably the hardest part of ACSL Lisp.
+
+    (CAR x) returns the first element of list x, and (CDR x)---the ``cutter'' function---returns
+    x without its first element.
+    For quick access to specific elements in a list, Lisp
+    uses functions like CAADDDAR, where the A's and D's represent successive
+    CAR and CDR operations.
+    For instance, the preceding functions represents (CAR(CAR(CAD(CAD(CAD(CAR x)))))).
+
+    CONS(x y) is slightly more complex.
+    It requires y to be a list (x can be anything) and returns the list (x y).
+    Note, if both x and y were lists, the elements of y would be unpacked from
+    the list, but the elements of x would not.
+    E.g., (CONS '(hello idealab) '(from sanjit)) would return ((hello idealab) from sanjit),
+    not (hello idealab from sanjit).
+    Finally, (REVERSE arg1 arg2 \ldots~argn) returns (argn \ldots~arg2 arg1).
+
+    What value does the following code produce:
+    \begin{enumerate}
+        \item (SETQ z (CONS '(red white blue) (CDR '(THIS is a list))))
+        \item (CDDAR z)
+    \end{enumerate}
+    Answer: the first line would set z to be ((red white blue) is a list).
+    The second line would perform (CDR (CDR (CAR z))), which is (blue).
+
+    Critical thinking question: in the previous code, what would
+    happen if we did (CONS (red white blue)) instead of (CONS '(red white blue)).
+    Answer: Lisp would throw an error.
+    Since we omitted the quote, it would try to evaluate (red white blue),
+    assuming red is a function and white and blue are red's arguments.
+    Since the function red is not previously defined, Lisp throws an error.
 
     \subsection{Defining Your Own Function}
     You can define your own function using the DEF function.
+    The syntax is (DEF function\_name (args) (expression operating on args)).
     For example, (DEF second (args) (CAR (CDR args))) creates
-    a function second that returns its second argument.
+    a function second that returns the second argument of its input.
 
     \newpage
     \section{Exercises}
     \begin{enumerate}
-        \item Evaluate (MULT (ADD 6 5 0) (MULT 5 1 2 2) (DIV 9 (SUB 2 5)))
+        \item Evaluate (MULT (ADD 6 5 0) (MULT 5 1 2 2) (DIV 6 (SUB 2 5)))
         \item Evaluate (CDR '((2 (3))(4 (5 6) 7)))
         \item (SETQ X '(RI VA FL CA TX))\\
         (CAR (CDR (REVERSE X)))\\
         What is the value of the CAR expression?
         \item Evaluate (CAR '((2 (3)) (4 (5 6)) 7))
-        \item (SETQ X '(((a (b c) d) e) ((b (c (d e) b)) a)(a b c)((c d) b (a b)(c e d))))\\
+        \item (SETQ X '(((a (b c) d) e) ((b (c (d e) b)) a)(a b c)((e d) b (a b)(c e d))))\\
         Evaluate the following expression:\\
-        (CDR(CDR(CDR(REVERSE(CAR(REVERSE(CDR x)))))))
+        (CDR (CDR (CDR (REVERSE (CAR (REVERSE (CDR x)))))))
+
+        Note: to accurately evaluate the expression,
+        you need to first understand the structure
+        of how the list is packed.
+        Do this by drawing arrows between corresponding parentheses.
+
         \item Given the function definitions for HY and FY as follows:\\
         (DEF HY(PARMS)(REVERSE (CDR PARMS)))\\
-        (DEF FY(PARMS)(CAR (HY(CDR PARMS))))\\
-        What is the value of the following?
-        (FY '(DO RE(MI FA) SO))
+        (DEF FY(PARMS)(CAR (HY (CDR PARMS))))\\
+        What is the value of the following?\\
+        (FY '(DO RE (MI FA) SO))
         \item Evaluate
-        (EXP(MULT 2(SUB 5(DIV(ADD 5 3 4) 2)) 3)3)
+        (EXP (MULT 2 (SUB 5 (DIV (ADD 5 3 4) 2)) 3) 3)
     \end{enumerate}
 
     \newpage
@@ -130,7 +166,7 @@
         \item ((4 (5 6) 7))
         \item CA
         \item (2 (3))
-        \item (e d)
+        \item ((e d))
         \item SO
         \item -216
     \end{enumerate}
