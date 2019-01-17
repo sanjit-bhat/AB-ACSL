@@ -2,6 +2,7 @@
 \usepackage[in]{fullpage} % use full page
 
 \usepackage{hyperref}
+\usepackage{amsmath}
 
 \title{ACSL Preparation: Prefix Postfix Infix}
 \author{Sanjit Bhat \and Alexander Sun}
@@ -47,12 +48,21 @@ Not too many challenging problems in this topic can be written. It's pretty stra
 \item Translate into infix: * + A D - + B C E
 
 \item Find all integer values of Y for which the following prefix expression has
-a value of zero: * + Y 4 - 6 Y
+a value of zero\\
+* + Y 4 - 6 Y
 
-\item Given A=4, B=14 and C=2, evaluate the following prefix expression: * / - + A B C * A C B
+\item Given A=4, B=14 and C=2, evaluate the following prefix expression: \\
+* / - + A B C * A C B
+
+\item Translate the following infix expression into postfix:\\
+\begin{equation*}
+\frac{(A-\frac{B}{C}+D)^{\frac{1}{2}}}{A+B}
+\end{equation*}
 
 \item Evaluate the following prefix expression, when A=10, B=2, C=12 and D=2:\\
-+ / A B 2  / - C D / A B 3 / + AC B
+\begin{equation*}
++ / \uparrow - A B 2 \uparrow / - C D / A B 3 / + A C B
+\end{equation*}
 \end{enumerate}
 
 \subsection{Convert to Prefix and Postfix}
