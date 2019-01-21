@@ -64,9 +64,9 @@
     the following problem?
     Also, what will (EVAL c) return?
     \begin{enumerate}
-        \item (SETQ a '(MULT 2 3))
-        \item (SET 'b 'a)
-        \item (SET 'c a)
+        \item (SETQ a `(MULT 2 3))
+        \item (SET `b `a)
+        \item (SET `c a)
         \item (ATOM b)
         \item (ATOM c)
     \end{enumerate}
@@ -86,7 +86,7 @@
     A few things to note:
     \begin{itemize}
         \item ADD and MULT work on an indefinite number of arguments
-        \item EQ tests for equality, returning ``true'' or NIL
+        \item EQ tests for equality, returning `true' or NIL
         \item POS and NEG test whether their arguments are positive or negative
         \item ADD, SUB, MULT, and DIV can be written with +, -, *, and /.
         If you use these symbols, remember to use \textbf{prefix} notation.
@@ -107,20 +107,20 @@
     It requires y to be a list (x can be anything) and returns the list (x y).
     Note, if both x and y were lists, the elements of y would be unpacked from
     the list, but the elements of x would not.
-    E.g., (CONS '(hello idealab) '(from sanjit)) would return ((hello idealab) from sanjit),
+    E.g., (CONS `(hello idealab) `(from sanjit)) would return ((hello idealab) from sanjit),
     not (hello idealab from sanjit).
     Finally, (REVERSE arg1 arg2 \ldots~argn) returns (argn \ldots~arg2 arg1).
 
     What value does the following code produce:
     \begin{enumerate}
-        \item (SETQ z (CONS '(red white blue) (CDR '(THIS is a list))))
+        \item (SETQ z (CONS `(red white blue) (CDR `(THIS is a list))))
         \item (CDDAR z)
     \end{enumerate}
     Answer: the first line would set z to be ((red white blue) is a list).
     The second line would perform (CDR (CDR (CAR z))), which is (blue).
 
     Critical thinking question: in the previous code, what would
-    happen if we did (CONS (red white blue)) instead of (CONS '(red white blue)).
+    happen if we did (CONS (red white blue)) instead of (CONS `(red white blue)).
     Answer: Lisp would throw an error.
     Since we omitted the quote, it would try to evaluate (red white blue),
     assuming red is a function and white and blue are red's arguments.
@@ -143,12 +143,12 @@
     \section{Exercises}
     \begin{enumerate}
         \item Evaluate (MULT (ADD 6 5 0) (MULT 5 1 2 2) (DIV 6 (SUB 2 5)))
-        \item Evaluate (CDR '((2 (3))(4 (5 6) 7)))
-        \item (SETQ X '(RI VA FL CA TX))\\
+        \item Evaluate (CDR `((2 (3))(4 (5 6) 7)))
+        \item (SETQ X `(RI VA FL CA TX))\\
         (CAR (CDR (REVERSE X)))\\
         What is the value of the CAR expression?
-        \item Evaluate (CAR '((2 (3)) (4 (5 6)) 7))
-        \item (SETQ X '(((a (b c) d) e) ((b (c (d e) b)) a)(a b c)((e d) b (a b)(c e d))))\\
+        \item Evaluate (CAR `((2 (3)) (4 (5 6)) 7))
+        \item (SETQ X `(((a (b c) d) e) ((b (c (d e) b)) a)(a b c)((e d) b (a b)(c e d))))\\
         Evaluate the following expression:\\
         (CDR (CDR (CDR (REVERSE (CAR (REVERSE (CDR x)))))))
 
@@ -161,7 +161,7 @@
         (DEF HY(PARMS)(REVERSE (CDR PARMS)))\\
         (DEF FY(PARMS)(CAR (HY (CDR PARMS))))\\
         What is the value of the following?\\
-        (FY '(DO RE (MI FA) SO))
+        (FY `(DO RE (MI FA) SO))
         \item Evaluate
         (EXP (MULT 2 (SUB 5 (DIV (ADD 5 3 4) 2)) 3) 3)
     \end{enumerate}
