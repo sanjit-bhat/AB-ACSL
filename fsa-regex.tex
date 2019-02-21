@@ -7,7 +7,7 @@
 \usepackage{graphicx}
 
 \usepackage{tikz}
-\usetikzlibrary{arrows}
+\usetikzlibrary{automata,positioning}
 \usepackage{subfigure}
 \usepackage{stackrel}
 \usepackage{blindtext}
@@ -99,24 +99,6 @@ For example, reali[sz]e defines the set \{realize, realise\} of possible strings
 These set can be later used for cross-referencing American English spellings with British
 English spellings.
 
-\paragraph{How are they interpreted by the computer?}
-In a regex, there are two types of chars: literals and metacharacters.
-Literals define regular characters, while metacharacters indicate
-more nuanced behaviors.
-After creating a regex, a regex processor transforms the characters into an internal
-representation that computers can process.
-This representation in known as a Finite State Automata (FSA).
-FSA's are a broad mathematical model consisting of the following:
-\begin{enumerate}
-\item A finite number of states, of which exactly one is active at any given time
-\item Transition rules to change the active state
-\item An initial state
-\item One or more final states
-\end{enumerate}
-We can draw an FSA by representing each state as a circle, the final state
-as a double circle, the start state as the only state with an incoming arrow,
-and the transition rules as labeled-edges connecting the states.
-
 \paragraph{All the regex syntax you need to know.}
 As mentioned above, regex includes metacharacters that define more complex types
 of string matching.
@@ -158,6 +140,8 @@ Instead, using parentheses we can get gr(a|e)y, which gives us the correct regex
 A more complex example is H(\"{a}|ae?)ndel, which matches \{Handel, H\"{a}ndel, Haendel\}.
 \end{enumerate}
 
+Order of operations: Kleene Star (*), concatenation (ab), and union($\cup$).
+
 \paragraph{Practicing the syntax via identity proofs.}
 To make sure you understand the syntax, see if you can prove the following identities:
 \begin{enumerate}
@@ -171,7 +155,47 @@ To make sure you understand the syntax, see if you can prove the following ident
 \item (a $\cup$ b)* = a*(ba*)*
 \end{enumerate}
 
-\paragraph{Practicing regex syntax.}
+\paragraph{How are regex interpreted by the computer?}
+In a regex, there are two types of chars: literals and metacharacters.
+Literals define regular characters, while metacharacters indicate
+more nuanced behaviors.
+After creating a regex, a regex processor transforms the characters into an internal
+representation that computers can process.
+For our purposes, we can consider this representation to be a Finite State Automata (FSA).
+FSAs are an abstract concept in theoretical computer science consisting of the following:
+\begin{enumerate}
+\item A finite number of states, of which exactly one is active at any given time
+\item Transition rules to change the active state
+\item An initial state
+\item One or more final states
+\end{enumerate}
+We can draw an FSA by representing each state as a circle, the final state
+as a double circle, the start state as the only state with an incoming arrow,
+and the transition rules as labeled-edges connecting the states.
+For instance, the following is an FSA diagram for the regex x+y+:
+
+{\centering
+\begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+   \node [state,initial, initial text=] (q_0) {A};
+   \node [state, right of=q_0] (q_1) {B};
+   \node [state, accepting, right of=q_1] (q_2) {C};
+    \path[->]
+    (q_0) edge node {x} (q_1)
+    (q_1) edge node {y} (q_2)
+          edge [loop above] node {x} ()
+    (q_2) edge [loop above] node {y} ();
+\end{tikzpicture}
+
+}
+
+If you would like to learn more about FSAs, I recommend the Wikipedia page.
+Outside the ACSL bubble, automata and finiteness
+are an important field of research in theoretical CS\@.
+They connect back to problems such as P vs. NP and whether a program
+will stop in a reasonable amount of time or even in an infinite amount of time.
+Alan Turing, the godfather of CS, wrote a paper related to FSAs (LINK PAPER) in the 1940s.
+
+\paragraph{Testing regex syntax.}
 If you would like to practice regex and have your code actually
 matched against strings, I recommend \href{https://regexr.com/}{this} website.
 
@@ -179,8 +203,92 @@ matched against strings, I recommend \href{https://regexr.com/}{this} website.
 \subsection{Translate an FSA to a Regular Expression}
 \label{par:translate}
 \begin{enumerate}
-\item \href{http://www.categories.acsl.org/wiki/index.php?title=FSAs_and_Regular_Expressions}{ACSL Wiki page}.
-\item \href{http://www.apcomputerscience.com/cst/topic_descriptions/regularExpressionsAndFSA.pdf}{Random website with diagrams.}
+\item Find a simplified Regular Expression for the following FSA:
+
+{\centering
+\begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+   \node [state,initial,initial text=] (q_0) {};
+   \node [state, right of=q_0] (q_1) {};
+   \node [state, right of=q_1] (q_2) {};
+   \node [state, accepting, right of=q_2] (q_3) {};
+    \path[->]
+    (q_0) edge node {0} (q_1)
+    (q_1) edge node {0} (q_2)
+          edge [loop above] node {1} ()
+    (q_2) edge node {1} (q_3);
+\end{tikzpicture}
+
+}
+
+\item Find a simplified Regular Expression for the following FSA:
+
+{\centering
+\begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+   \node [state,initial,initial text=] (q_0) {};
+   \node [state, above right=of q_0] (q_1) {};
+   \node [state, below right=of q_0] (q_2) {};
+   \node [state, accepting, below right=of q_1] (q_3) {};
+    \path[->]
+    (q_0) edge node {a} (q_1)
+          edge node {b} (q_2)
+    (q_1) edge node {c} (q_3)
+    (q_2) edge node {c} (q_3);
+\end{tikzpicture}
+
+}
+
+\item List all of the following FSAs which represent 1*01*0:
+
+    \begin{enumerate}
+    \item
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+       \node [state,initial,initial text=] (q_0) {};
+       \node [state, right of=q_0] (q_1) {};
+       \node [state, accepting, right of=q_1] (q_2) {};
+        \path[->]
+        (q_0) edge [loop above] node {1} ()
+              edge node {0} (q_1)
+        (q_1) edge [loop above] node {1} ()
+              edge node {0} (q_2);
+    \end{tikzpicture}
+
+    \item
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+       \node [state,initial,initial text=] (q_0) {};
+       \node [state, accepting, right of=q_0] (q_1) {};
+        \path[->]
+        (q_0) edge [loop above] node {1} ()
+              edge node {0} (q_1);
+    \end{tikzpicture}
+
+    \item
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+       \node [state,initial,initial text=] (q_0) {};
+       \node [state, right of=q_0] (q_1) {};
+       \node [state, accepting, right of=q_1] (q_2) {};
+        \path[->]
+        (q_0) edge [loop above] node {0,1} ()
+              edge node {1} (q_1)
+        (q_1) edge [loop above] node {0,1} ()
+              edge node {0} (q_2);
+    \end{tikzpicture}
+
+    \item
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+       \node [state,initial,initial text=] (q_0) {};
+       \node [state, above right=of q_0] (q_1) {};
+       \node [state, below right=of q_0] (q_2) {};
+       \node [state, accepting, below right=of q_1] (q_3) {};
+        \path[->]
+        (q_0) edge node {0} (q_1)
+              edge node {1} (q_2)
+        (q_1) edge [loop above] node {1} ()
+              edge node {1} (q_3)
+        (q_2) edge [loop below] node {0} ()
+              edge node {1} (q_3)
+        (q_3) edge [loop above] node {0} ();
+    \end{tikzpicture}
+    \end{enumerate}
 \end{enumerate}
 
 \subsection{Simplify a Regular Expression}
@@ -188,6 +296,16 @@ matched against strings, I recommend \href{https://regexr.com/}{this} website.
 
 \subsection{Determine which Regular Expressions or FSAs are equivalent}
 \label{par:equivalent}
+\begin{enumerate}
+\item Which, if any, of the following Regular Expressions are equivalent?
+    \begin{enumerate}
+    \item (a$\cup$b)(ab*)(b*$\cup$a)
+    \item (aab*$\cup$bab*)a
+    \item aab*$\cup$bab*$\cup$aaba$\cup$bab*a
+    \item aab*$\cup$bab*$\cup$aab*a$\cup$bab*a
+    \item a*$\cup$b*
+    \end{enumerate}
+\end{enumerate}
 
 \subsection{Determine which strings are accepted by either an FSA or a Regular Expression}
 \label{par:accepted}
@@ -226,6 +344,22 @@ pattern ``Hi?g+h+[\string^a-ceiou]''?
 
 %\newpage
 \section{Solutions}
+
+\subsection{Answers for Section~\ref{par:translate}}
+\begin{enumerate}
+\item 01*01
+\item (a|b)c or ac $\cup$ bc
+\item a. The other choices correspond to 1*0, (0$\cup$1)*1(0$\cup$1)*0, and 01*10*$\cup$10*10*
+\end{enumerate}
+
+\subsection{Answers for Section~\ref{par:equivalent}}
+\begin{enumerate}
+\item B is different from the rest because it requires an ending `a'.
+E is different from the rest because it doesn't allow for alternating a's and b's.
+C and D are different because of the third `or' condition.
+Upon very close inspection, A and D are equivalent (check this carefully yourself).
+Therefore, A and D are the answers.
+\end{enumerate}
 
 \subsection{Answers for Section~\ref{par:accepted}}
 \begin{enumerate}
