@@ -92,47 +92,58 @@ This eventually lead to its use in the famous UNIX tool grep.
 
 \section{Background}
 \paragraph{What are regular expressions?}
-According to Wikipedia, regular expressions (regex) are ``a sequence of characters that define a search pattern''.
+According to Wikipedia, regular expressions (regex) are ``a sequence of characters that define a search pattern.''
 In other words, a regex defines a set of possible strings in a concise manner for
 some later purpose.
 For example, reali[sz]e defines the set \{realize, realise\} of possible strings.
-These set can be later used for cross-referencing American English spellings with British
-English spellings.
+This set can be later used for cross-referencing American-English spellings with
+British-English spellings.
 
 \paragraph{All the regex syntax you need to know.}
-As mentioned above, regex includes metacharacters that define more complex types
+Regex includes \textit{metacharacters} that define more complex types
 of string matching.
 The following is a list of all the regex metacharacters you need to know:
+
 \begin{enumerate}
 \item \textbf{|, or, $\cup$}
-These are booleans that tell the processor to take the set union of the left
-and right regexes.
+These are booleans that tell the processor to take the set union of the regexes
+on the left- and right-hand sides.
+For instance, gr(a|e)y, gray or grey, and gr(a$\cup$e)y all define the set
+\{gray, grey\}.
+
 \item \textbf{$\lambda$}
 The null or empty string.
+
 \item \textbf{Quantification}
 Defining the number of something allowed to occur.
+Note that these all operate on a regex left of the operator.
     \begin{enumerate}
     \item \textbf{?}
     Zero or one.
     E.g., colou?r = \{color, colour\}.
     \item \textbf{*}
     Zero or more.
+    This is also called the Kleene Star (named after the inventor, Stephen Kleene).
     \item \textbf{+}
     One or more.
     \end{enumerate}
+
 \item \textbf{.}
-Wildcard, or any character.
-Combine . and * for a.*b, which means any string with a and b as the left and right
-characters with anything inbetween.
+Wildcard (a fill in for any character).
+Combine . and * for a.*b, which accepts any string with a and b as the leftmost and rightmost
+characters, respectively, with an arbitrary number of arbitrary characters inbetween.
+
 \item \textbf{[\ldots]}
 Set of possible character matches.
-Think reali[sz]e example above.
+Think the reali[sz]e example above.
 This can get slightly more complex by using hyphens to define ranges of possible characters.
 E.g., [a-z] means every \textit{lowercase} char from a to z;
 [abcx-z] means a, b, c, and x, y, z; and [a-cx-z] means a, b, c and x, y, z.
+
 \item \textbf{[\string^\ldots]}
 Set of characters not contained withing the brackets.
-E.g., [\string^a-z] matches any characcter that is not a lowercase letter from a to z.
+E.g., [\string^a-z] matches any character that is not a lowercase character from a to z.
+
 \item \textbf{()}
 Just like in math, parentheses imply grouping.
 E.g., if we wanted the set \{gray, grey\}, gra|ey would give us \{gra, ey\}.
@@ -141,9 +152,14 @@ A more complex example is H(\"{a}|ae?)ndel, which matches \{Handel, H\"{a}ndel, 
 \end{enumerate}
 
 Order of operations: Kleene Star (*), concatenation (ab), and union($\cup$).
+Because Kleene Star has the highest priority, a.*b accepts a string
+with an arbitrary number of \textit{several different arbitrary} characters
+ (e.g., \{acdb, \ldots\}), as opposed
+to only an arbitrary number of a single arbitrary character (e.g., \{accb, \ldots\}).
 
 \paragraph{Practicing the syntax via identity proofs.}
-To make sure you understand the syntax, see if you can prove the following identities:
+To make sure you understand the syntax and order of operations,
+see if you can prove the following identities:
 \begin{enumerate}
 \item (a*)* = a*
 \item aa* = a*a
@@ -160,8 +176,7 @@ In a regex, there are two types of chars: literals and metacharacters.
 Literals define regular characters, while metacharacters indicate
 more nuanced behaviors.
 After creating a regex, a regex processor transforms the characters into an internal
-representation that computers can process.
-For our purposes, we can consider this representation to be a Finite State Automata (FSA).
+representation that can be thought of as a Finite State Automata (FSA).
 FSAs are an abstract concept in theoretical computer science consisting of the following:
 \begin{enumerate}
 \item A finite number of states, of which exactly one is active at any given time
@@ -193,7 +208,6 @@ Outside the ACSL bubble, automata and finiteness
 are an important field of research in theoretical CS\@.
 They connect back to problems such as P vs. NP and whether a program
 will stop in a reasonable amount of time or even in an infinite amount of time.
-Alan Turing, the godfather of CS, wrote a paper related to FSAs (LINK PAPER) in the 1940s.
 
 \paragraph{Testing regex syntax.}
 If you would like to practice regex and have your code actually
