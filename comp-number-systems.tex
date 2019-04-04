@@ -1,26 +1,17 @@
-\documentclass[12pt]{article}
+\documentclass{pset_template}
 
-\usepackage[margin=1in]{geometry} 
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath, mathtools}  % mathtools required for box around equations
-\setlength{\marginparwidth}{2cm}  % required for todonotes package
-\usepackage[colorinlistoftodos]{todonotes}
-
-\title{ACSL: Computer Number Systems}
-\author{Sanjit Bhat \and Alexander Sun}
-\date{\today}
+\title{Computer Number Systems}
+\date{October 5, 2018}
+\editorOne{Sanjit Bhat}
+\editorTwo{Alexander Sun}
+\lectureNum{1}
+\contestMonth{December}
 
 \begin{document}
-
 \maketitle
 
-
 \section{Easy to Medium Problems}
-\paragraph{test para}
-sdflkja;oeifj;o sldkdfj;a osiejf
-
 \begin{enumerate}
-
 \item
 Convert $8765_{16}$ to binary form.
 
@@ -69,7 +60,7 @@ First, we convert to base 10.
 \end{align*}
 
 $65261_{10} - 27343_{10} = 37919_{10}$.
-Just as a reminder, we'll do the last bit of computation to convert to base 16. \todo{add appendix on why this works}
+Just as a reminder, we'll do the last bit of computation to convert to base 16.
 
 \begin{align*}
 37919/16 &= 2369~\text{R 15}\\
@@ -205,5 +196,4 @@ It's a recursive problem!
 As such, we can apply the same factorization solution to each quotient, take the remainders, and extract out every single digit! 
 Since each factorization brings another multiplication by $b$, remainders computed earlier appear as
 digits farther to the left than remainders computed later. Hence, the reverse order.
-
 \end{document}
